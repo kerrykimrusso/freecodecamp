@@ -5,6 +5,8 @@
 var express = require('express');
 var app = express();
 
+import TimestampController from 'api/timestamp/TimestampController.js';
+
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
 
@@ -12,6 +14,8 @@ app.use(express.static('public'));
 app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
+
+app.get('/timestamp/:time', TimestampController.getTimestamp);
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
