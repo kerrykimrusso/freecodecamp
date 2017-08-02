@@ -1,17 +1,25 @@
-import { months } from 'constants.js';
+const monthNames = require('../../constants.js').monthNames;
 
-export default class TimestampController {
+class TimestampController {
   static getTimestamp(req, res) {
     let time = req.params.time;
-    console.log(time);
-    if(/\d+$/.test(time) || /\w+\s+\d{1,2}\s+\d{4}/.test(time)) {
-      let date = new Date(time);
-      res.sendJSON({
-        unix: date.getTime(),
-        natural: `${months[date.getMonth() + 1]} ${date.getDate()}, ${date.getFullYear()}`
-      });
+    
+    if(/\d+$/.test(time)) {
+      res.json(this.createTimestampObj(time * 1000));
+    } else if(/\w+\s+\d{1,2}\s+\d{4}/.test(time)) {
+      res.json
     }
       
-    res.sendJSON(null);
+    res.json(null);
+  }
+  
+  private createTimestampObj() {
+    let date = new Date(time);
+    return {
+      unix: date.getTime(),
+      natural: `${monthNames[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
+    }
   }
 }
+
+module.exports = TimestampController;
