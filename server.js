@@ -15,7 +15,7 @@ app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 }); 
 
-app.get('/timestamp/:time', TimestampController.getTimestamp);
+app.get('/:time', TimestampController.getTimestamp);
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {

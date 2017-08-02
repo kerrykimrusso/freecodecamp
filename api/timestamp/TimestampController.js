@@ -6,15 +6,21 @@ class TimestampController {
     
     if(/^\d+$/.test(time)) {
       res.json(TimestampController.createTimestampObj(parseInt(time) * 1000));
-    } else if(/^\w+\s+\d{1,2}\s+\d{4}/.test(time)) {
+    } else if(!isNaN(Date.parse(time))) {
       res.json(TimestampController.createTimestampObj(time));
-      
     } else {
-      res.json(null);
+      res.json(TimestampController.createTimestampObj(null));
     }
   }
   
   static createTimestampObj(time) {
+    if(!time) {
+      return {
+        unix: null,
+        natural: null
+      }
+    }
+    
     let date = new Date(time);
     return {
       unix: date.getTime(),
